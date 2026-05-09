@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/match.dart';
@@ -76,8 +77,7 @@ Keep it light, fun, and billiards-specific. No profanity.''';
         Uri.parse('https://api.anthropic.com/v1/messages'),
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key':
-              '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',
+          'x-api-key': dotenv.env['ANTHROPIC_API_KEY'] ?? '',
           'anthropic-version': '2023-06-01',
           'anthropic-dangerous-direct-browser-access': 'true',
         },
