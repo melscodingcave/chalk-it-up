@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/match.dart';
+import 'setup_screen.dart';
 
 class MatchScreen extends StatefulWidget {
   final Match match;
@@ -100,6 +101,16 @@ Keep it light, fun, and billiards-specific. No profanity.''';
         _loadingTrashTalk = false;
       });
     }
+  }
+
+  void _undoPoint(Player player) {
+    if (_match.isComplete) return;
+    if (player.score <= 0) return;
+
+    setState(() {
+      player.score--;
+      player.racksWon--;
+    });
   }
 
   @override
@@ -223,6 +234,17 @@ Keep it light, fun, and billiards-specific. No profanity.''';
                       backgroundColor: Colors.blue.shade700,
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const SetupScreen()),
+                    ),
+                    child: const Text(
+                      'New Match',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -238,6 +260,7 @@ Keep it light, fun, and billiards-specific. No profanity.''';
     return Expanded(
       child: GestureDetector(
         onTap: () => _addPoint(player),
+        onLongPress: () => _undoPoint(player),
         child: Container(
           color: isWinner
               ? Colors.blue.shade900.withValues(alpha: 0.3)
@@ -273,6 +296,11 @@ Keep it light, fun, and billiards-specific. No profanity.''';
                 const Text(
                   'Tap to score',
                   style: TextStyle(color: Colors.grey, fontSize: 12),
+                ),
+              if (!_match.isComplete)
+                const Text(
+                  'Hold to undo',
+                  style: TextStyle(color: Colors.grey, fontSize: 11),
                 ),
             ],
           ),
