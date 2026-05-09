@@ -34,12 +34,10 @@ flutter pub get
 flutter run
 ```
 
-Add your Anthropic API key in `lib/screens/match_screen.dart`:
-```dart
-'x-api-key': 'your-api-key-here',
+Create a `.env` file in the root:
 ```
-
-> ⚠️ Note: In production, API keys should never be hardcoded. This would be proxied through a backend service.
+ANTHROPIC_API_KEY=your-api-key-here
+```
 
 ---
 

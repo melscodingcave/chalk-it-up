@@ -48,3 +48,16 @@ This file documents where and how AI tooling assisted in building `chalk-it-up`.
 **What I defined:** Full test scenario list before tests were written — happy path, validation, and locked state categories. Tests were written to match the scenarios, not the other way around.
 
 **Why it matters:** Test scenarios should be driven by requirements, not by what's easy to test. Defining scenarios first ensures coverage is intentional.
+
+---
+
+### API Key Security — .env Implementation
+**What happened:** API key was initially hardcoded in match_screen.dart.
+
+**What I changed:** Moved to .env file loaded via flutter_dotenv package. 
+Key is excluded from version control via .gitignore.
+
+**Why it matters:** Hardcoded keys in source code are a security risk even 
+in portfolio projects — anyone cloning the repo would have access to the key. 
+.env files are a standard mitigation. The production solution remains a 
+backend proxy, but .env is the correct portfolio-level approach.
